@@ -5,6 +5,7 @@
 # include <cmath>
 # include <vector>
 
+
 using namespace std;
 char ch_cap ( char ch );
 
@@ -1078,6 +1079,11 @@ void readFile()
 		cout << endl;
 	}
 	
+	string name = "example1.pgm";
+	int rows, columns;
+	unsigned char maxValue, g;
+	pgmb_read( name, rows, columns, maxValue, *g)
+    
 }
 
 int main(void)
