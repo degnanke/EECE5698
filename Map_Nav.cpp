@@ -17,6 +17,19 @@ Map_Nav::Map_Nav(){
     obstCode = 0;
 }
 
+Map_Nav::Map_Nav(vector<vector <int> > matrix) {
+    
+    map = matrix;
+    
+    width = matrix.size();
+    height = matrix[0].size();
+    openCode = 254;
+    unexCode = 205;
+    obstCode = 0;
+    
+}
+
+
 Map_Nav::Map_Nav(int w, int h){
     width = w;
     height = h;
