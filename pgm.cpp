@@ -3,6 +3,8 @@
 # include <iomanip>
 # include <fstream>
 # include <cmath>
+# include <vector>
+
 
 using namespace std;
 char ch_cap ( char ch );
@@ -1044,6 +1046,39 @@ void s_word_extract_first ( string s, string &s1, string &s2 )
 
 void readFile()
 {
+	string name = "C:/Users/Kevin/Documents/EECE5698/example1.pgm";
+	int rows, columns;
+	unsigned char maxValue;
+	unsigned char ** g;
+	unsigned char  *pG;
+	unsigned char ppG;
+	pG = &ppG;
+	g = &pG;
+	pgmb_read( name, columns, rows, maxValue, g);
+    
+    /*for (int i = 0; i < rows*columns; i++) {
+    	cout << (int) pG[i] << ",";
+    	if (i % columns == 0) {
+    		cout << endl;
+		}
+	}*/
+	
+	vector<vector<int> > matrix(rows);
+	for ( int i = 0 ; i < rows ; i++ )
+   		matrix[i].resize(columns);
+	
+	for(int i = 0; i < rows; i++) {
+    	for(int j = 0; j < columns; j++) {
+         	matrix[i][j] = pG[rows*i + columns];
+    	}
+	}
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			cout << matrix[i][j] << ",";
+		}
+		cout << endl;
+	}
+	
 	string name = "example1.pgm";
 	int rows, columns;
 	unsigned char maxValue, g;
@@ -1055,16 +1090,3 @@ int main(void)
 {
 	readFile();
 }
-/*...
-std::string header, magic;
-int width=0, height=0, maxsample=0, samples=0, bits=0, bytes=0;
-do {
-   try { getline(is,magic); } catch ( const std::ios_base::failure & ) {}
-   if ( !magic.empty() && magic[0] != '#' ) header += magic+" ";
-   if ( !( std::stringstream(header+" 1") >> magic >> width >> height >> maxsample ).eof() ) break;
-   if ( ( (magic=="P1"||magic=="P4") && maxsample==1 ) || !is.good() ) break;
-   } while ( true );
-samples = magic=="P1"?1:magic=="P2"?1:magic=="P3"?3:magic=="P4"?1:magic=="P5"?1:magic=="P6"?3:0;
-bits = (magic=="P1"||magic=="P4")?1:maxsample<256?8:maxsample<256*256?16:0, bytes = (width*samples*bits+7)>>3;
-if ( width<=0 || height<=0 || maxsample<=0 || samples<=0 || bits<=0 ) throw std::runtime_error("invalid PNM header");
-*/
